@@ -1,8 +1,10 @@
 import { AppBar, Backdrop, Box, Button, Container, Fade, Link, Modal, TextField, Toolbar, Typography } from "@mui/material"
 import { useState } from "react"
 import AuthModal from "./AuthModal"
+import useAuth from "../hooks/useAuth"
 
 const Header = () => {
+  const { isAuthenticated, logout, user } = useAuth()
   const [modalOpened, setModalOpened] = useState(false)
 
   return (
@@ -50,7 +52,12 @@ const Header = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 
             </Typography>
-            <Button color="inherit" onClick={e => setModalOpened(true)}>Войти</Button>
+
+            {isAuthenticated ? (
+              <Button color="inherit" onClick={logout}>Выйти</Button>
+            ) : (
+              <Button color="inherit" onClick={e => setModalOpened(true)}>Войти</Button>
+            )}
           </Toolbar>
         </Container>
       </AppBar>

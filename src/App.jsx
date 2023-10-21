@@ -1,6 +1,8 @@
-import { AppBar, Box, Button, Container, CssBaseline, Stack, TextField, ThemeProvider, Toolbar, Tooltip, Typography, createTheme, } from "@mui/material"
+import { Box, CssBaseline, Stack, TextField, ThemeProvider, createTheme } from "@mui/material"
 import Header from "./components/Header"
 import Post from "./components/Post"
+import useAuth from "./hooks/useAuth"
+import './lib/zod'
 
 const theme = createTheme({
   palette: {
@@ -8,8 +10,13 @@ const theme = createTheme({
   }
 })
 
-
 const App = () => {
+  const {isReady} = useAuth()
+
+  if (!isReady) {
+    return
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
