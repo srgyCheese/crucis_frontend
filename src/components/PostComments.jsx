@@ -35,7 +35,7 @@ const PostComments = ({ postId }) => {
 
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      {comments.map(comment => (
+      {comments.map((comment, i) => (
         <React.Fragment key={comment.id}>
           <ListItem alignItems="flex-start">
             <ListItemAvatar>
@@ -55,7 +55,7 @@ const PostComments = ({ postId }) => {
               }
             />
           </ListItem>
-          <Divider variant="inset" component="li" />
+          {comments.length - 1 !== i && <Divider variant="inset" component="li" />}
         </React.Fragment>
       ))}
       <div ref={showMoreRef} />

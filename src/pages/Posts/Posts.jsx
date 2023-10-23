@@ -23,20 +23,29 @@ const Posts = () => {
             timeout: 500,
           },
         }}
+        sx={{
+          overflow: 'auto'
+        }}
       >
         <Fade in={postId !== null}>
           <Box sx={{
             position: 'absolute',
-            top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%)',
+            transform: 'translateX(-50%)',
             maxWidth: 640,
             width: '100%',
-            bgcolor: 'background.paper',
             borderRadius: 3,
-            boxShadow: 24,
+            pb: 5,
+            pt: 10,
           }}>
-            {postId !== null && <FullPost id={+postId} />}
+            <Box sx={{
+              bgcolor: 'background.paper',
+              boxShadow: 24,
+              borderRadius: 3,
+              overflow: 'hidden',
+            }}>
+              {postId !== null && <FullPost id={+postId} />}
+            </Box>
           </Box>
         </Fade>
       </Modal>
