@@ -52,6 +52,8 @@ const RegistrationForm = ({ goToLogin, onSuccess }) => {
     registerMutation.mutate(data, {
       onSuccess: ({ token }) => {
         auth.login(token)
+
+        onSuccess()
       },
       onError: ({ response }) => {
         const { errors } = response.data

@@ -6,7 +6,7 @@ export const useCreatePost = () => {
 
   return useMutation({
     mutationFn: async body => {
-      const { data } = await api.post('/posts/=', body)
+      const { data } = await api.post('/posts', body)
 
       queryClient.invalidateQueries(['posts'])
 

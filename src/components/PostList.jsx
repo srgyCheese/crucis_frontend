@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react"
 import { useIntersection } from "@mantine/hooks"
 
 const PostList = () => {
-  const {data, isLoading, fetchNextPage} = usePosts()
+  const {data, isLoading, fetchNextPage, isError} = usePosts()
 
   const showMoreRef = useRef()
 
@@ -22,6 +22,10 @@ const PostList = () => {
 
   if (isLoading) {
     return
+  }
+
+  if (isError) {
+    return 'Произошла ошибка'
   }
 
   const posts = data.pages?.flatMap(page => page.data)
