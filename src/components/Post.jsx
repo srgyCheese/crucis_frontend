@@ -5,8 +5,10 @@ import ColoredAvatar from './ColoredAvatar'
 import { useRef, useState } from 'react'
 import EditPostForm from './EditPostForm'
 import { useDeletePost } from '../queries/postQueries'
+import useAuth from '../hooks/useAuth'
 
-const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete }) => {
+const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId }) => {
+  const { user } = useAuth()
   const anchorRef = useRef()
   const deletePost = useDeletePost()
   const [isPopoverOpened, setIsPopoverOpened] = useState(false)
@@ -22,42 +24,41 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
         subheaderTypographyProps={{
           textTransform: 'capitalize'
         }}
-        action={
-          <>
-            <IconButton aria-label='more' onClick={e => setIsPopoverOpened(true)} ref={anchorRef}>
-              <MoreVert />
-            </IconButton>
+        action={user.id === userId && <>
+          <IconButton aria-label='more' onClick={e => setIsPopoverOpened(true)} ref={anchorRef}>
+            <MoreVert />
+          </IconButton>
 
-            <Popover
-              open={isPopoverOpened}
-              anchorEl={anchorRef.current}
-              onClose={e => setIsPopoverOpened(false)}
-              onClick={e => setIsPopoverOpened(false)}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-            >
-              <List dense>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={e => setIsPostEditing(true)}>
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <Edit fontSize='small' />
-                    </ListItemIcon>
-                    <ListItemText primary='Изменить' />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding onClick={e => deletePost.mutate({ id }, { onSuccess: onDelete })}>
-                  <ListItemButton>
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <Delete fontSize='small' />
-                    </ListItemIcon>
-                    <ListItemText primary='Удалить' />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Popover>
-          </>
+          <Popover
+            open={isPopoverOpened}
+            anchorEl={anchorRef.current}
+            onClose={e => setIsPopoverOpened(false)}
+            onClick={e => setIsPopoverOpened(false)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            <List dense>
+              <ListItem disablePadding>
+                <ListItemButton onClick={e => setIsPostEditing(true)}>
+                  <ListItemIcon sx={{ minWidth: 36 }}>
+                    <Edit fontSize='small' />
+                  </ListItemIcon>
+                  <ListItemText primary='Изменить' />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding onClick={e => deletePost.mutate({ id }, { onSuccess: onDelete })}>
+                <ListItemButton>
+                  <ListItemIcon sx={{ minWidth: 36 }}>
+                    <Delete fontSize='small' />
+                  </ListItemIcon>
+                  <ListItemText primary='Удалить' />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Popover>
+        </>
         }
       />
       <CardContent>

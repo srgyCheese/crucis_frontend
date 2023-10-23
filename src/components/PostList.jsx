@@ -46,6 +46,7 @@ const PostList = () => {
         <Post
           key={post.id}
           id={post.id}
+          userId={post.user.id}
           onCommentsClick={e => {
             searchParams.set('postId', post.id)
             setSearchParams(searchParams)

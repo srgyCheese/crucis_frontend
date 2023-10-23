@@ -16,6 +16,7 @@ const FullPost = ({ id, close }) => {
     <Box>
       <Post
         id={id}
+        userId={postQuery.data.user.id}
         avatarUrl={postQuery.data.user.avatar_url}
         firstName={postQuery.data.user.first_name}
         lastName={postQuery.data.user.last_name}
