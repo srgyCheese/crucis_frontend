@@ -1,8 +1,9 @@
 import { useIntersection } from "@mantine/hooks"
 import { usePostComments } from "../queries/postQueries"
 import React, { useEffect, useRef } from "react"
-import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material"
+import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material"
 import ColoredAvatar from "./ColoredAvatar"
+import dayjs from "dayjs"
 
 const PostComments = ({ postId }) => {
   const postCommentsQuery = usePostComments({ postId })
@@ -42,7 +43,29 @@ const PostComments = ({ postId }) => {
               <ColoredAvatar avatarUrl={comment.user.avatar_url} firstName={comment.user.first_name} lastName={comment.user.last_name} />
             </ListItemAvatar>
             <ListItemText
-              primary={`${comment.user.first_name} ${comment.user.last_name}`}
+              primary={
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between'
+                }}>
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {comment.user.first_name} {comment.user.last_name}
+                  </Typography>
+                  <Typography
+                    sx={{ display: 'inline', textTransform: 'capitalize' }}
+                    component="span"
+                    variant="caption"
+                    color="text.secondary"
+                  >
+                    {dayjs(comment.created_at).format('MMMM DD, hh:mm')}
+                  </Typography>
+                </Box>
+              }
               secondary={
                 <Typography
                   sx={{ display: 'inline' }}
