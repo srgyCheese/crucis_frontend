@@ -15,7 +15,7 @@ const PostComments = ({ postId }) => {
   })
 
   useEffect(() => {
-    if (entry?.isIntersecting) {
+    if (entry?.isIntersecting && data.pages.at(-1).meta.to) {
       fetchNextPage()
     }
   }, [entry])

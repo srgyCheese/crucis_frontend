@@ -8,14 +8,16 @@ const Posts = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const postId = searchParams.get('postId')
 
+  const close = () => {
+    searchParams.delete('postId')
+    setSearchParams(searchParams)
+  }
+
   return (
     <Container sx={{ mt: 2 }}>
       <Modal
         open={postId !== null}
-        onClose={e => {
-          searchParams.delete('postId')
-          setSearchParams(searchParams)
-        }}
+        onClose={close}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -37,6 +39,7 @@ const Posts = () => {
             borderRadius: 3,
             pb: 5,
             pt: 10,
+            outline: 'none'
           }}>
             <Box sx={{
               bgcolor: 'background.paper',
@@ -44,7 +47,7 @@ const Posts = () => {
               borderRadius: 3,
               overflow: 'hidden',
             }}>
-              {postId !== null && <FullPost id={+postId} />}
+              {postId !== null && <FullPost id={+postId} close={close} />}
             </Box>
           </Box>
         </Fade>

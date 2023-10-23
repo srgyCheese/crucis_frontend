@@ -17,7 +17,7 @@ const PostList = () => {
   })
 
   useEffect(() => {
-    if (entry?.isIntersecting) {
+    if (entry?.isIntersecting && data.pages.at(-1).meta.to) {
       fetchNextPage()
     }
   }, [entry])
@@ -45,6 +45,7 @@ const PostList = () => {
       {posts.map(post => (
         <Post
           key={post.id}
+          id={post.id}
           onCommentsClick={e => {
             searchParams.set('postId', post.id)
             setSearchParams(searchParams)

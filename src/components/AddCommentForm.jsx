@@ -9,7 +9,7 @@ const schema = z.object({
   text: z
     .string()
     .min(1)
-    .max(64),
+    .max(512),
 })
 
 const AddCommentForm = ({ postId }) => {
