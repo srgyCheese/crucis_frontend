@@ -2,12 +2,22 @@ import { Avatar, Badge, Button, Card, CardActions, CardContent, CardHeader, Icon
 import { Share, Comment } from '@mui/icons-material'
 import dayjs from "dayjs"
 
-const colorsArray = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FF8000", "#8000FF", "#00FF80", "#FF0080"]
+function stringToColor(string) {
+  let hash = 0
+  let i;
+  
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash)
+  }
 
-function nameToColor(str) {
-  const index = str.charCodeAt(0) % colorsArray.length
+  let color = '#'
 
-  return colorsArray[index]
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff
+    color += `00${value.toString(16)}`.slice(-2)
+  }
+
+  return color
 }
 
 const Post = ({ text, firstName, lastName, avatarUrl, createdAt }) => {
@@ -17,7 +27,7 @@ const Post = ({ text, firstName, lastName, avatarUrl, createdAt }) => {
         avatar={avatarUrl ? (
           <Avatar src={avatarUrl} />
         ) : (
-          <Avatar sx={{ bgcolor: nameToColor(firstName) }}>
+          <Avatar sx={{ bgcolor: stringToColor(`${firstName} ${lastName}`) }}>
             {firstName[0]}
           </Avatar>
         )}
