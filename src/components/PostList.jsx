@@ -3,10 +3,12 @@ import Post from "./Post"
 import { usePosts } from "../queries/postQueries"
 import { useEffect, useRef } from "react"
 import { useIntersection } from "@mantine/hooks"
+import { useSearchParams } from "react-router-dom"
 
 const PostList = () => {
-  const {data, isLoading, fetchNextPage, isError} = usePosts()
+  const [searchParams, setSearchParams] = useSearchParams()
 
+  const { data, isLoading, fetchNextPage, isError } = usePosts()
   const showMoreRef = useRef()
 
   const { entry, ref } = useIntersection({
@@ -43,14 +45,19 @@ const PostList = () => {
       {posts.map(post => (
         <Post
           key={post.id}
+          onCommentsClick={e => {
+            searchParams.set('postId', post.id)
+            setSearchParams(searchParams)
+          }}
           text={post.text}
           createdAt={post.createdAt}
           firstName={post.user.first_name}
           lastName={post.user.last_name}
           avatarUrl={post.user.avatar_url}
+          comments={post.comments}
         />
       ))}
-      <div ref={ref}>...</div>
+      <div ref={ref} />
     </Stack>
   )
 }

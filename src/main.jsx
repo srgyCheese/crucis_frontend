@@ -1,18 +1,41 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
-
 import './lib/zod'
 import './lib/dayjs'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Posts from './pages/Posts/Posts.jsx'
+import { ThemeProvider, createTheme } from '@mui/material'
+import HeaderLayout from './layouts/HeaderLayout'
 
 const queryClient = new QueryClient()
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark'
+  }
+})
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <HeaderLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Posts />
+      }
+    ]
+  }
+])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 )
