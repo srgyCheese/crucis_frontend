@@ -5,9 +5,11 @@ import { useSearchParams } from "react-router-dom"
 import FullPost from "../../components/FullPost"
 import PostModal from "../../components/PostModal"
 import { useState } from "react"
+import useAuth from "../../hooks/useAuth"
 
 const Posts = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const {isAuthenticated} = useAuth()
   const [sort, setSort] = useState('created_at')
   const postId = searchParams.get('postId')
 
@@ -19,7 +21,7 @@ const Posts = () => {
   return (
     <Container sx={{ mt: 2 }}>
       <PostModal close={close} postId={postId} />
-      <CreatePostForm />
+      {isAuthenticated && <CreatePostForm />}
       <Box sx={{display: 'flex', gap: 1, alignItems: 'center'}}>
         Сортировать
         <FormControl>

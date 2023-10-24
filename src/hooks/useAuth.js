@@ -25,6 +25,8 @@ const useAuth = () => {
       ...old,
       token: null
     }))
+    
+    queryClient.setQueryData(['profile'], null)
   }
 
   const login = async token => {
@@ -82,7 +84,7 @@ const useAuth = () => {
 
   return {
     token,
-    isAuthenticated: !!token && userQuery.data,
+    isAuthenticated: !!token && !!userQuery.data?.id,
     login,
     logout: () => {
       logoutMutation.mutate(null, {
@@ -91,6 +93,7 @@ const useAuth = () => {
     },
     isReady,
     user: userQuery.data,
+    isAdmin: userQuery.data ? userQuery.data.role_id === 2 : false
   }
 }
 

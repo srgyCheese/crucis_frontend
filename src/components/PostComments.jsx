@@ -8,7 +8,7 @@ import { Delete, MoreVert } from "@mui/icons-material"
 import useAuth from "../hooks/useAuth"
 
 const Comment = ({ avatarUrl, firstName, lastName, createdAt, text, id, userId }) => {
-  const { user } = useAuth()
+  const { user, isAdmin } = useAuth()
   const [isPopoverOpened, setIsPopoverOpened] = useState(false)
   const deleteComment = useDeleteComment()
   const anchorRef = useRef()
@@ -43,11 +43,12 @@ const Comment = ({ avatarUrl, firstName, lastName, createdAt, text, id, userId }
                   {dayjs(createdAt).format('MMMM DD, hh:mm')}
                 </Typography>
 
-                {user.id === userId && <><Box sx={{ display: 'inline-block', maxHeight: '30px', ml: 1 }}>
-                  <IconButton ref={anchorRef} onClick={e => setIsPopoverOpened(true)}>
-                    <MoreVert />
-                  </IconButton>
-                </Box>
+                {(isAdmin || user.id === userId) && <>
+                  <Box sx={{ display: 'inline-block', maxHeight: '30px', ml: 1 }}>
+                    <IconButton ref={anchorRef} onClick={e => setIsPopoverOpened(true)}>
+                      <MoreVert />
+                    </IconButton>
+                  </Box>
 
                   <Popover
                     open={isPopoverOpened}

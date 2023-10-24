@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import SharePostModal from './SharePostModal'
 
 const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId }) => {
-  const { user } = useAuth()
+  const { user, isAdmin } = useAuth()
   const anchorRef = useRef()
   const deletePost = useDeletePost()
   const [isPopoverOpened, setIsPopoverOpened] = useState(false)
@@ -26,13 +26,17 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
         open={isSharePopupOpened}
       />
       <CardHeader
-        avatar={<ColoredAvatar avatarUrl={avatarUrl} firstName={firstName} lastName={lastName} />}
+        avatar={(
+          <Link to={`/users/${userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ColoredAvatar avatarUrl={avatarUrl} firstName={firstName} lastName={lastName} />
+          </Link>
+        )}
         title={<Link to={`/users/${userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>{firstName} {lastName}</Link>}
         subheader={dayjs(createdAt).format('MMMM DD, YYYY')}
         subheaderTypographyProps={{
           textTransform: 'capitalize'
         }}
-        action={(user && user.id === userId) && <>
+        action={(isAdmin || (user && user.id === userId)) && <>
           <IconButton aria-label='more' onClick={e => setIsPopoverOpened(true)} ref={anchorRef}>
             <MoreVert />
           </IconButton>
