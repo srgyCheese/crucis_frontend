@@ -7,6 +7,7 @@ import EditPostForm from './EditPostForm'
 import { useDeletePost } from '../queries/postQueries'
 import useAuth from '../hooks/useAuth'
 import { Link } from 'react-router-dom'
+import SharePostModal from './SharePostModal'
 
 const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId }) => {
   const { user } = useAuth()
@@ -15,9 +16,15 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
   const [isPopoverOpened, setIsPopoverOpened] = useState(false)
 
   const [isPostEditing, setIsPostEditing] = useState(false)
+  const [isSharePopupOpened, setIsSharePopupOpened] = useState(false)
 
   return (
     <Card>
+      <SharePostModal 
+        postId={id}
+        onClose={() => setIsSharePopupOpened(false)}
+        open={isSharePopupOpened}
+      />
       <CardHeader
         avatar={<ColoredAvatar avatarUrl={avatarUrl} firstName={firstName} lastName={lastName} />}
         title={<Link to={`/users/${userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>{firstName} {lastName}</Link>}
@@ -79,7 +86,7 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
         >
           {comments}
         </Button>
-        <IconButton aria-label='share'>
+        <IconButton aria-label='share' onClick={() => setIsSharePopupOpened(true)}>
           <Share />
         </IconButton>
       </CardActions>

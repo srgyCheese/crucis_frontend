@@ -64,7 +64,8 @@ const Header = () => {
                     horizontal: 'right',
                   }}
                   transformOrigin={{
-                    horizontal: 'right'
+                    horizontal: 'right',
+                    vertical: 'top'
                   }}
                 >
                   <List dense>
