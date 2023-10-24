@@ -4,9 +4,9 @@ import Header from "../components/Header"
 import { Outlet } from "react-router-dom"
 
 const HeaderLayout = () => {
-  const { isReady, isUserLoading } = useAuth()
+  const { isReady, user, isAuthenticated, isUserLoading } = useAuth()
 
-  if (!isReady && isUserLoading) {
+  if (!isReady || (isAuthenticated && !user)) {
     return
   }
 

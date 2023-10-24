@@ -82,7 +82,7 @@ const useAuth = () => {
 
   return {
     token,
-    isAuthenticated: !!token,
+    isAuthenticated: !!token && userQuery.data,
     login,
     logout: () => {
       logoutMutation.mutate(null, {
@@ -91,7 +91,6 @@ const useAuth = () => {
     },
     isReady,
     user: userQuery.data,
-    isUserLoading: userQuery.isLoading
   }
 }
 

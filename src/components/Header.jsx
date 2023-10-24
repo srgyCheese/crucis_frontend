@@ -7,7 +7,8 @@ import ColoredAvatar from "./ColoredAvatar"
 import { ExitToApp, Person } from "@mui/icons-material"
 
 const Header = () => {
-  const { isAuthenticated, logout, user } = useAuth()
+  const { isAuthenticated, logout, user, isUserLoading } = useAuth()
+
   const avatarRef = useRef()
   const [modalOpened, setModalOpened] = useState(false)
   const [isPopoverOpened, setIsPopoverOpened] = useState(false)
@@ -80,7 +81,7 @@ const Header = () => {
                         </ListItemButton>
                       </Link>
                     </ListItem>
-                    <ListItem disablePadding onClick={e => deletePost.mutate({ id }, { onSuccess: onDelete })}>
+                    <ListItem disablePadding>
                       <ListItemButton onClick={logout}>
                         <ListItemIcon sx={{ minWidth: 36 }}>
                           <ExitToApp />
