@@ -1,6 +1,6 @@
 import api from '~/lib/axios'
 import { useEffect, useState } from 'react'
-import { useLogout, useUser } from '../queries/authQueries'
+import { useLogout, useProfile } from '../queries/authQueries'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 const useAuth = () => {
@@ -16,7 +16,7 @@ const useAuth = () => {
 
   const { token, isReady } = authQuery.data || {}
   const logoutMutation = useLogout()
-  const userQuery = useUser()
+  const userQuery = useProfile()
 
   const logout = () => {
     api.defaults.headers.common.Authorization = null
@@ -90,7 +90,8 @@ const useAuth = () => {
       })
     },
     isReady,
-    user: userQuery.data
+    user: userQuery.data,
+    isUserLoading: userQuery.isLoading
   }
 }
 

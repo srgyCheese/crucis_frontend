@@ -1,4 +1,5 @@
 import { Avatar } from "@mui/material"
+import { forwardRef } from "react";
 
 function stringToColor(string) {
   let hash = 0
@@ -18,16 +19,16 @@ function stringToColor(string) {
   return color
 }
 
-const ColoredAvatar = ({ avatarUrl, firstName, lastName }) => {
+const ColoredAvatar = forwardRef(({ avatarUrl, firstName, lastName, sx, onClick }, ref) => {
   if (avatarUrl) {
-    return <Avatar src={avatarUrl} />
+    return <Avatar src={avatarUrl} ref={ref} onClick={onClick} />
   }
 
   return (
-    <Avatar sx={{ bgcolor: stringToColor(`${firstName} ${lastName}`) }}>
+    <Avatar sx={{ bgcolor: stringToColor(`${firstName} ${lastName}`), ...sx }} onClick={onClick} ref={ref}>
       {firstName[0]}
     </Avatar>
   )
-}
+})
 
 export default ColoredAvatar

@@ -1,45 +1,7 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { produce } from "immer"
 import api from '~/lib/axios'
-
-const useOptimisticUpdate = () => {
-  const queryClient = useQueryClient()
-
-  return (queryK, id, changeFn) => {
-    queryClient
-      .getQueriesData(queryK)
-      .forEach(([queryKey, queryData]) => {
-        if (!queryData || queryKey[0] !== queryK[0]) {
-          return
-        }
-
-        if (Number.isInteger(+queryKey[1])) {
-          if (+queryKey[1] == id) {
-            queryClient.setQueryData(queryKey, changeFn(queryData))
-          }
-
-          return
-        }
-
-        const nextState = produce(queryData, draft => {
-          console.log(queryData);
-          draft.pages.forEach(({ data }, pageIndex) => {
-            const elementIndex = data.findIndex(
-              el => el.id == id
-            )
-
-            if (elementIndex !== -1) {
-              draft.pages[pageIndex].data[elementIndex] = changeFn(
-                draft.pages[pageIndex].data[elementIndex]
-              )
-            }
-          })
-        })
-
-        queryClient.setQueryData(queryKey, nextState)
-      })
-  }
-}
+import { useOptimisticQueryUpdate } from "../helpers/useOptimisticQueryUpdate"
 
 export const useCreatePost = () => {
   const queryClient = useQueryClient()
@@ -56,7 +18,7 @@ export const useCreatePost = () => {
 }
 
 export const useEditPost = () => {
-  const updatePost = useOptimisticUpdate()
+  const updatePost = useOptimisticQueryUpdate()
 
   return useMutation({
     mutationFn: async ({ postId, ...body }) => {
@@ -83,12 +45,13 @@ export const useDeletePost = () => {
   })
 }
 
-export const usePosts = () =>
+export const usePosts = (params) =>
   useInfiniteQuery({
-    queryKey: ['posts'],
+    queryKey: params ? ['posts', params] : ['posts'],
     queryFn: async ({ pageParam }) => {
       const { data } = await api.get('/posts', {
         params: {
+          ...params,
           page: pageParam
         }
       })

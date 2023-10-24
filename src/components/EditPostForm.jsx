@@ -27,8 +27,7 @@ const EditPostForm = ({ postId, text, discard }) => {
 
   const onSubmit = data => {
     editPost.mutate({...data, postId}, {
-      onSuccess: discard,
-      onError: console.log
+      onSuccess: discard
     })
   }
 

@@ -1,14 +1,14 @@
-import { Container, Stack } from "@mui/material"
+import { Stack } from "@mui/material"
 import Post from "./Post"
 import { usePosts } from "../queries/postQueries"
 import { useEffect, useRef } from "react"
 import { useIntersection } from "@mantine/hooks"
 import { useSearchParams } from "react-router-dom"
 
-const PostList = () => {
+const PostList = ({params}) => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { data, isLoading, fetchNextPage, isError } = usePosts()
+  const { data, isLoading, fetchNextPage, isError } = usePosts(params)
   const showMoreRef = useRef()
 
   const { entry, ref } = useIntersection({

@@ -1,5 +1,6 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api from '~/lib/axios'
+import { useOptimisticQueryUpdate } from '../helpers/useOptimisticQueryUpdate'
 
 export const useLogin = () =>
   useMutation({
@@ -19,9 +20,9 @@ export const useRegister = () =>
     }
   })
 
-export const useUser = () =>
+export const useProfile = () =>
   useQuery({
-    queryKey: ['user'],
+    queryKey: ['profile'],
     enabled: false,
     queryFn: async () => {
       const { data } = await api.get('/profile')
@@ -38,3 +39,19 @@ export const useLogout = () =>
       return data
     }
   })
+
+
+export const useEditProfile = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (body) => {
+      const { data } = await api.put(`/profile`, body)
+
+      queryClient.setQueryData(['profile'], data)
+      queryClient.setQueryData(['users', data.id], data)
+
+      return data
+    }
+  })
+}

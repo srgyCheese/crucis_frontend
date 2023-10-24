@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, CardHeader, IconButton, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Popover, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, CardHeader, IconButton, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Popover, TextField, Typography } from '@mui/material'
 import { Share, Comment, MoreVert, Delete, Edit } from '@mui/icons-material'
 import dayjs from 'dayjs'
 import ColoredAvatar from './ColoredAvatar'
@@ -6,6 +6,7 @@ import { useRef, useState } from 'react'
 import EditPostForm from './EditPostForm'
 import { useDeletePost } from '../queries/postQueries'
 import useAuth from '../hooks/useAuth'
+import { Link } from 'react-router-dom'
 
 const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId }) => {
   const { user } = useAuth()
@@ -19,12 +20,12 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
     <Card>
       <CardHeader
         avatar={<ColoredAvatar avatarUrl={avatarUrl} firstName={firstName} lastName={lastName} />}
-        title={`${firstName} ${lastName}`}
+        title={<Link to={`/users/${userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>{firstName} {lastName}</Link>}
         subheader={dayjs(createdAt).format('MMMM DD, YYYY')}
         subheaderTypographyProps={{
           textTransform: 'capitalize'
         }}
-        action={user.id === userId && <>
+        action={(user && user.id === userId) && <>
           <IconButton aria-label='more' onClick={e => setIsPopoverOpened(true)} ref={anchorRef}>
             <MoreVert />
           </IconButton>
