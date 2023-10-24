@@ -20,7 +20,7 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
 
   return (
     <Card>
-      <SharePostModal 
+      <SharePostModal
         postId={id}
         onClose={() => setIsSharePopupOpened(false)}
         open={isSharePopupOpened}
@@ -46,6 +46,7 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
               vertical: 'bottom',
               horizontal: 'left',
             }}
+            disableScrollLock
           >
             <List dense>
               <ListItem disablePadding>
@@ -69,7 +70,7 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
         </>
         }
       />
-      <CardContent>
+      <CardContent sx={{ wordWrap: 'break-word' }}>
         {isPostEditing ? <EditPostForm postId={id} text={text} discard={e => setIsPostEditing(false)} /> : text}
       </CardContent>
       <CardActions sx={{

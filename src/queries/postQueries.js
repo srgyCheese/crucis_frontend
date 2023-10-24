@@ -45,6 +45,20 @@ export const useDeletePost = () => {
   })
 }
 
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const { data } = await api.delete(`/comments/${id}`)
+
+      queryClient.invalidateQueries(['comments'])
+
+      return data
+    }
+  })
+}
+
 export const usePosts = (params) =>
   useInfiniteQuery({
     queryKey: params ? ['posts', params] : ['posts'],

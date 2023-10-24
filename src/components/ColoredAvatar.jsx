@@ -21,7 +21,7 @@ function stringToColor(string) {
 
 const ColoredAvatar = forwardRef(({ avatarUrl, firstName, lastName, sx, onClick }, ref) => {
   if (avatarUrl) {
-    return <Avatar src={avatarUrl} ref={ref} onClick={onClick} />
+    return <Avatar src={avatarUrl} ref={ref} onClick={onClick} sx={sx} />
   }
 
   return (
