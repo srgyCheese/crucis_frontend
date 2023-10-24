@@ -46,6 +46,14 @@ export const useEditProfile = () => {
 
   return useMutation({
     mutationFn: async (body) => {
+      if (body.avatar instanceof File) {
+        const newAvatar = await api.uploadImage(body.avatar)
+
+        delete body.avatar
+
+        body.avatar_url = newAvatar.url
+      }
+
       const { data } = await api.put(`/profile`, body)
 
       queryClient.setQueryData(['profile'], data)
