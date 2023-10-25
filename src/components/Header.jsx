@@ -34,7 +34,6 @@ const Header = () => {
               }}
             >
               <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="42" height="42" rx="10" fill="#212121" />
                 <path d="M21 17.5C20.2044 17.5 19.4413 17.8161 18.8787 18.3787C18.3161 18.9413 18 19.7044 18 20.5C18 21.2956 18.3161 22.0587 18.8787 22.6213C19.4413 23.1839 20.2044 23.5 21 23.5C21.7956 23.5 22.5587 23.1839 23.1213 22.6213C23.6839 22.0587 24 21.2956 24 20.5C24 19.7044 23.6839 18.9413 23.1213 18.3787C22.5587 17.8161 21.7956 17.5 21 17.5ZM21 25.5C19.6739 25.5 18.4021 24.9732 17.4645 24.0355C16.5268 23.0979 16 21.8261 16 20.5C16 19.1739 16.5268 17.9021 17.4645 16.9645C18.4021 16.0268 19.6739 15.5 21 15.5C22.3261 15.5 23.5979 16.0268 24.5355 16.9645C25.4732 17.9021 26 19.1739 26 20.5C26 21.8261 25.4732 23.0979 24.5355 24.0355C23.5979 24.9732 22.3261 25.5 21 25.5ZM21 13C16 13 11.73 16.11 10 20.5C11.73 24.89 16 28 21 28C26 28 30.27 24.89 32 20.5C30.27 16.11 26 13 21 13Z" fill="#F5F5F5" />
                 <path d="M25.6973 25L36.0676 35.6642" stroke="#F5F5F5" />
                 <path d="M6.69727 5L17.0676 15.6642" stroke="#F5F5F5" />
@@ -72,7 +71,7 @@ const Header = () => {
                 >
                   <List dense>
                     <ListItem disablePadding>
-                      <Link to={`/users/${user.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                      <Link to={`/users/${user.id}`} style={{ color: 'inherit', textDecoration: 'none', width: '100%' }}>
                         <ListItemButton>
                           <ListItemIcon sx={{ minWidth: 36 }}>
                             <Person />
@@ -83,7 +82,7 @@ const Header = () => {
                     </ListItem>
                     {isAdmin && (
                       <ListItem disablePadding>
-                        <Link to={`/users`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                        <Link to={`/users`} style={{ color: 'inherit', textDecoration: 'none', width: '100%' }}>
                           <ListItemButton>
                             <ListItemIcon sx={{ minWidth: 36 }}>
                               <PeopleAlt />

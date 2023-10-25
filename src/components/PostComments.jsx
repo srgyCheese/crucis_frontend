@@ -43,7 +43,7 @@ const Comment = ({ avatarUrl, firstName, lastName, createdAt, text, id, userId }
                   {dayjs(createdAt).format('MMMM DD, hh:mm')}
                 </Typography>
 
-                {(isAdmin || user.id === userId) && <>
+                {(isAdmin || user?.id === userId) && <>
                   <Box sx={{ display: 'inline-block', maxHeight: '30px', ml: 1 }}>
                     <IconButton ref={anchorRef} onClick={e => setIsPopoverOpened(true)}>
                       <MoreVert />

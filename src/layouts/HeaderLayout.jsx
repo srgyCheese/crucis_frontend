@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth"
 import Header from "../components/Header"
 import { Outlet } from "react-router-dom"
 
-const HeaderLayout = () => {
+const HeaderLayout = ({children}) => {
   const { isReady, user, isAuthenticated } = useAuth()
 
   if (!isReady || (isAuthenticated && !user)) {
@@ -15,7 +15,7 @@ const HeaderLayout = () => {
       <CssBaseline />
       <Header />
       <Box sx={{pt: '64px'}}>
-        <Outlet />
+        {children}
       </Box>
     </>
   )

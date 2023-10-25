@@ -11,7 +11,7 @@ import SharePostModal from './SharePostModal'
 import { blue } from '@mui/material/colors'
 
 const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId, clipped, likes, liked }) => {
-  const { user, isAdmin } = useAuth()
+  const { user, isAdmin, isAuthenticated } = useAuth()
   const likePost = useLikePost()
   const unlikePost = useUnlikePost()
   const anchorRef = useRef()
@@ -97,7 +97,17 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
           variant='text'
           color={liked ? 'error' : 'inherit'}
           sx={{ borderRadius: 10 }}
-          onClick={liked ? e => unlikePost.mutate({ postId: id }) : e => likePost.mutate({ postId: id })}
+          onClick={e => {
+            if (!isAuthenticated) {
+              return
+            }
+
+            if (liked) {
+              unlikePost.mutate({ postId: id })
+            } else {
+              likePost.mutate({ postId: id })
+            }
+          }}
           startIcon={<Favorite fontSize='large' />}
         >
           {likes}

@@ -1,15 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import HeaderLayout from "./layouts/HeaderLayout";
 import Posts from "./pages/Posts/Posts";
 import User from "./pages/User/User";
-import AuthLayout from "./layouts/AuthLayout";
 import Users from "./pages/Users/Users";
-
+import AdminRequire from "./layouts/AdminRequire";
+import NotFound from "./pages/NotFound/NotFound";
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <HeaderLayout />,
+    element: (
+      <HeaderLayout>
+        <Outlet />
+      </HeaderLayout>
+    ),
+    errorElement: (
+      <HeaderLayout>
+        <NotFound />
+      </HeaderLayout>
+    ),
     children: [
       {
         path: '/',
@@ -21,7 +30,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/users',
-        element: <Users />
+        element: (
+          <AdminRequire>
+            <Users />
+          </AdminRequire>
+        )
       }
     ]
   },

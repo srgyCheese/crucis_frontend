@@ -23,7 +23,6 @@ const Posts = () => {
       <PostModal close={close} postId={postId} />
       {isAuthenticated && <CreatePostForm />}
       <Box sx={{display: 'flex', gap: 1, alignItems: 'center'}}>
-        Сортировать
         <FormControl>
           <Select
             value={sort}

@@ -4,9 +4,11 @@ import Post from "./Post";
 import { Send } from "@mui/icons-material";
 import AddCommentForm from "./AddCommentForm";
 import PostComments from "./PostComments";
+import useAuth from "../hooks/useAuth";
 
 const FullPost = ({ id, close }) => {
   const postQuery = usePost({ id })
+  const {isAuthenticated} = useAuth()
 
   if (postQuery.isLoading) {
     return
@@ -27,7 +29,7 @@ const FullPost = ({ id, close }) => {
         text={postQuery.data.text}
         onDelete={close}
       />
-      <AddCommentForm postId={id} />
+      {isAuthenticated && <AddCommentForm postId={id} />}
       <PostComments postId={id} />
     </Box>
   )
