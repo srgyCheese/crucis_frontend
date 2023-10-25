@@ -26,12 +26,12 @@ const AuthModal = ({ open, onClose }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
+          maxWidth: '640px',
           width: '100%',
           px: 1
         }}>
           <Box sx={{
             width: '100%',
-            maxWidth: '640px',
             bgcolor: 'background.paper',
             borderRadius: 3,
             boxShadow: 24,

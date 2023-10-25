@@ -24,12 +24,10 @@ const SharePostModal = ({ postId, open, onClose }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '100%',
           px: 1
         }}>
           <Box sx={{
             width: 'min-content',
-            maxWidth: '640px',
             bgcolor: 'background.paper',
             borderRadius: 3,
             boxShadow: 24,

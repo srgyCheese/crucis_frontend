@@ -1,7 +1,7 @@
 import { Backdrop, Box, Fade, Modal } from "@mui/material"
 import FullPost from "./FullPost"
 
-const PostModal = ({postId, close}) => {
+const PostModal = ({ postId, close }) => {
   return (
     <Modal
       open={postId !== null}
@@ -29,13 +29,15 @@ const PostModal = ({postId, close}) => {
           pt: 10,
           outline: 'none'
         }}>
-          <Box sx={{
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            borderRadius: 3,
-            overflow: 'hidden',
-          }}>
-            {postId !== null && <FullPost id={+postId} close={close} />}
+          <Box sx={{ px: 1 }}>
+            <Box sx={{
+              bgcolor: 'background.paper',
+              boxShadow: 24,
+              borderRadius: 3,
+              overflow: 'hidden',
+            }}>
+              {postId !== null && <FullPost id={+postId} close={close} />}
+            </Box>
           </Box>
         </Box>
       </Fade>
