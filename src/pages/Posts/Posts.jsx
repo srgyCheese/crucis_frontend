@@ -31,7 +31,7 @@ const Posts = () => {
           >
             <MenuItem value={'created_at'}>Сначала новые</MenuItem>
             <MenuItem value={'no'}>Сначала старые</MenuItem>
-            <MenuItem value={'likes'}>Сначала популярные</MenuItem>
+            <MenuItem value={'likes_count'}>Сначала популярные</MenuItem>
           </Select>
         </FormControl>
       </Box>
