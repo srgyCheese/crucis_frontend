@@ -31,10 +31,11 @@ const Posts = () => {
           >
             <MenuItem value={'created_at'}>Сначала новые</MenuItem>
             <MenuItem value={'no'}>Сначала старые</MenuItem>
+            <MenuItem value={'likes'}>Сначала популярные</MenuItem>
           </Select>
         </FormControl>
       </Box>
-      <PostList params={sort === 'created_at' && {sort: [sort]}} />
+      <PostList params={sort !== 'no' && {sort: [sort]}} />
     </Container>
   )
 }
