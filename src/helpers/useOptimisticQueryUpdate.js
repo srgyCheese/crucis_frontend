@@ -12,9 +12,10 @@ export const useOptimisticQueryUpdate = () => {
           return
         }
 
+
         if (Number.isInteger(+queryKey[1])) {
           if (+queryKey[1] == id) {
-            queryClient.setQueryData(queryKey, changeFn(queryData))
+            queryClient.setQueryData(queryKey, produce(queryData, changeFn))
           }
 
           return
