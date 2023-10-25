@@ -53,14 +53,16 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
             disableScrollLock
           >
             <List dense>
-              <ListItem disablePadding>
-                <ListItemButton onClick={e => setIsPostEditing(true)}>
-                  <ListItemIcon sx={{ minWidth: 36 }}>
-                    <Edit fontSize='small' />
-                  </ListItemIcon>
-                  <ListItemText primary='Изменить' />
-                </ListItemButton>
-              </ListItem>
+              {!(isAdmin && user?.id != userId) && (
+                <ListItem disablePadding>
+                  <ListItemButton onClick={e => setIsPostEditing(true)}>
+                    <ListItemIcon sx={{ minWidth: 36 }}>
+                      <Edit fontSize='small' />
+                    </ListItemIcon>
+                    <ListItemText primary='Изменить' />
+                  </ListItemButton>
+                </ListItem>
+              )}
               <ListItem disablePadding onClick={e => deletePost.mutate({ id }, { onSuccess: onDelete })}>
                 <ListItemButton>
                   <ListItemIcon sx={{ minWidth: 36 }}>
