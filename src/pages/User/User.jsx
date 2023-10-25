@@ -75,7 +75,8 @@ const User = () => {
         />
       ) : (
         <PostList params={{
-          user_id: userId
+          user_id: userId,
+          sort: ['created_at']
         }} />
       )}
     </Container>

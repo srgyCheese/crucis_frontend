@@ -41,7 +41,7 @@ const PostList = ({params}) => {
   }
 
   return (
-    <Stack sx={{ mt: 4 }} gap={3} direction="column" useFlexGap>
+    <Stack sx={{ mt: 4, mb: 2 }} gap={3} direction="column" useFlexGap>
       {posts.map(post => {
         let lineBreakClippedtext = post.text
         let clipped = post.clipped
