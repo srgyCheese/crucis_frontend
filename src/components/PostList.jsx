@@ -44,10 +44,11 @@ const PostList = ({params}) => {
     <Stack sx={{ mt: 4 }} gap={3} direction="column" useFlexGap>
       {posts.map(post => {
         let lineBreakClippedtext = post.text
+        let clipped = post.clipped
 
         if (post.text.split('\n')?.length > 4) {
           lineBreakClippedtext = post.text.split('\n').toSpliced(4).join('\n')
-          post.clipped = true
+          clipped = true
         }
 
         return (
@@ -65,7 +66,9 @@ const PostList = ({params}) => {
             lastName={post.user.last_name}
             avatarUrl={post.user.avatar_url}
             comments={post.comments}
-            clipped={post.clipped}
+            clipped={clipped}
+            likes={post.likes}
+            liked={post.liked}
           />
         )
       })}

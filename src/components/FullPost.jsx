@@ -22,6 +22,8 @@ const FullPost = ({ id, close }) => {
         lastName={postQuery.data.user.last_name}
         createdAt={postQuery.data.created_at}
         comments={postQuery.data.comments}
+        likes={postQuery.data.likes}
+        liked={postQuery.data.liked}
         text={postQuery.data.text}
         onDelete={close}
       />

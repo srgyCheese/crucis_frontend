@@ -1,17 +1,19 @@
 import { Box, Button, Card, CardActions, CardContent, CardHeader, IconButton, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Popover, TextField, Typography } from '@mui/material'
-import { Share, Comment, MoreVert, Delete, Edit } from '@mui/icons-material'
+import { Share, Comment, MoreVert, Delete, Edit, ThumbUp, Favorite } from '@mui/icons-material'
 import dayjs from 'dayjs'
 import ColoredAvatar from './ColoredAvatar'
 import { useRef, useState } from 'react'
 import EditPostForm from './EditPostForm'
-import { useDeletePost } from '../queries/postQueries'
+import { useDeletePost, useLikePost, useUnlikePost } from '../queries/postQueries'
 import useAuth from '../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import SharePostModal from './SharePostModal'
 import { blue } from '@mui/material/colors'
 
-const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId, clipped }) => {
+const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId, clipped, likes, liked }) => {
   const { user, isAdmin } = useAuth()
+  const likePost = useLikePost()
+  const unlikePost = useUnlikePost()
   const anchorRef = useRef()
   const deletePost = useDeletePost()
   const [isPopoverOpened, setIsPopoverOpened] = useState(false)
@@ -90,6 +92,16 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
         display: 'flex',
         justifyContent: 'flex-end',
       }}>
+        <Button
+          size='large'
+          variant='text'
+          color={liked ? 'error' : 'inherit'}
+          sx={{ borderRadius: 10 }}
+          onClick={liked ? e => unlikePost.mutate({ postId: id }) : e => likePost.mutate({ postId: id })}
+          startIcon={<Favorite fontSize='large' />}
+        >
+          {likes}
+        </Button>
         <Button
           size='large'
           variant='text'

@@ -59,6 +59,58 @@ export const useDeleteComment = () => {
   })
 }
 
+export const useEditComment = () => {
+  const updateComment = useOptimisticQueryUpdate()
+
+  return useMutation({
+    mutationFn: async ({ commentId, ...body }) => {
+      const { data } = await api.put(`/comments/${commentId}`, body)
+      
+      updateComment(['comments'], +commentId, () => data)
+
+      return data
+    }
+  })
+}
+
+export const useLikePost = () => {
+  const updatePost = useOptimisticQueryUpdate()
+
+  return useMutation({
+    mutationFn: async ({ postId }) => {
+      updatePost(['posts'], +postId, post => {
+        post.likes = post.likes + 1
+        post.liked = true
+
+        return post
+      })
+
+      const { data } = await api.post(`/posts/${postId}/like`)
+
+      return data
+    }
+  })
+}
+
+export const useUnlikePost = () => {
+  const updatePost = useOptimisticQueryUpdate()
+
+  return useMutation({
+    mutationFn: async ({ postId }) => {
+      updatePost(['posts'], +postId, post => {
+        post.likes = post.likes - 1
+        post.liked = false
+
+        return post
+      })
+
+      const { data } = await api.delete(`/posts/${postId}/like`)
+
+      return data
+    }
+  })
+}
+
 export const usePosts = (params) =>
   useInfiniteQuery({
     queryKey: params ? ['posts', params] : ['posts'],
