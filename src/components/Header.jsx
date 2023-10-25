@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 import AuthModal from "./AuthModal"
 import useAuth from "../hooks/useAuth"
 import ColoredAvatar from "./ColoredAvatar"
-import { ExitToApp, Person } from "@mui/icons-material"
+import { ExitToApp, PeopleAlt, Person, VerifiedUserRounded } from "@mui/icons-material"
 
 const Header = () => {
-  const { isAuthenticated, logout, user, isUserLoading } = useAuth()
+  const { isAuthenticated, logout, user, isAdmin } = useAuth()
 
   const avatarRef = useRef()
   const [modalOpened, setModalOpened] = useState(false)
@@ -73,7 +73,7 @@ const Header = () => {
                   <List dense>
                     <ListItem disablePadding>
                       <Link to={`/users/${user.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                        <ListItemButton onClick={e => setIsPostEditing(true)}>
+                        <ListItemButton>
                           <ListItemIcon sx={{ minWidth: 36 }}>
                             <Person />
                           </ListItemIcon>
@@ -81,6 +81,18 @@ const Header = () => {
                         </ListItemButton>
                       </Link>
                     </ListItem>
+                    {isAdmin && (
+                      <ListItem disablePadding>
+                        <Link to={`/users`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                          <ListItemButton>
+                            <ListItemIcon sx={{ minWidth: 36 }}>
+                              <PeopleAlt />
+                            </ListItemIcon>
+                            <ListItemText primary='Пользователи' />
+                          </ListItemButton>
+                        </Link>
+                      </ListItem>
+                    )}
                     <ListItem disablePadding>
                       <ListItemButton onClick={logout}>
                         <ListItemIcon sx={{ minWidth: 36 }}>

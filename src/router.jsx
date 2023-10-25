@@ -3,6 +3,7 @@ import HeaderLayout from "./layouts/HeaderLayout";
 import Posts from "./pages/Posts/Posts";
 import User from "./pages/User/User";
 import AuthLayout from "./layouts/AuthLayout";
+import Users from "./pages/Users/Users";
 
 
 export const router = createBrowserRouter([
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
         path: '/users/:userId',
         element: <User />
       },
+      {
+        path: '/users',
+        element: <Users />
+      }
     ]
   },
 ])
