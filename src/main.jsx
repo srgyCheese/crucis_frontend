@@ -8,7 +8,13 @@ import { RouterProvider } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { router } from './router'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0
+    }
+  }
+})
 
 const theme = createTheme({
   palette: {

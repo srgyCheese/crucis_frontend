@@ -5,12 +5,23 @@ import { Send } from "@mui/icons-material";
 import AddCommentForm from "./AddCommentForm";
 import PostComments from "./PostComments";
 import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 const FullPost = ({ id, close }) => {
   const postQuery = usePost({ id })
   const {isAuthenticated} = useAuth()
 
+  useEffect(() => {
+    if (postQuery.isError) {
+      close()
+    }
+  }, [postQuery.isError])
+
   if (postQuery.isLoading) {
+    return
+  }
+
+  if (postQuery.isError) {
     return
   }
 
