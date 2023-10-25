@@ -8,8 +8,9 @@ import { useDeletePost } from '../queries/postQueries'
 import useAuth from '../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import SharePostModal from './SharePostModal'
+import { blue } from '@mui/material/colors'
 
-const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId }) => {
+const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsClick, comments, onDelete, userId, clipped }) => {
   const { user, isAdmin } = useAuth()
   const anchorRef = useRef()
   const deletePost = useDeletePost()
@@ -76,8 +77,14 @@ const Post = ({ id, text, firstName, lastName, avatarUrl, createdAt, onCommentsC
         </>
         }
       />
-      <CardContent sx={{ wordWrap: 'break-word' }}>
-        {isPostEditing ? <EditPostForm postId={id} text={text} discard={e => setIsPostEditing(false)} /> : text}
+      <CardContent sx={{ wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
+        {isPostEditing ? <EditPostForm postId={id} text={text} discard={e => setIsPostEditing(false)} /> : (
+          <Box>
+            {text}{clipped && ' '}{clipped && (
+              <Typography sx={{ display: 'inline-block', fontWeight: '600', cursor: 'pointer', color: blue[500] }} onClick={onCommentsClick}>Читать далее...</Typography>
+            )}
+          </Box>
+        )}
       </CardContent>
       <CardActions sx={{
         display: 'flex',

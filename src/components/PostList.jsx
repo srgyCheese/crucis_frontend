@@ -42,23 +42,33 @@ const PostList = ({params}) => {
 
   return (
     <Stack sx={{ mt: 4 }} gap={3} direction="column" useFlexGap>
-      {posts.map(post => (
-        <Post
-          key={post.id}
-          id={post.id}
-          userId={post.user.id}
-          onCommentsClick={e => {
-            searchParams.set('postId', post.id)
-            setSearchParams(searchParams)
-          }}
-          text={post.text}
-          createdAt={post.createdAt}
-          firstName={post.user.first_name}
-          lastName={post.user.last_name}
-          avatarUrl={post.user.avatar_url}
-          comments={post.comments}
-        />
-      ))}
+      {posts.map(post => {
+        let lineBreakClippedtext = post.text
+
+        if (post.text.split('\n')?.length > 4) {
+          lineBreakClippedtext = post.text.split('\n').toSpliced(4).join('\n')
+          post.clipped = true
+        }
+
+        return (
+          <Post
+            key={post.id}
+            id={post.id}
+            userId={post.user.id}
+            onCommentsClick={e => {
+              searchParams.set('postId', post.id)
+              setSearchParams(searchParams)
+            }}
+            text={lineBreakClippedtext}
+            createdAt={post.createdAt}
+            firstName={post.user.first_name}
+            lastName={post.user.last_name}
+            avatarUrl={post.user.avatar_url}
+            comments={post.comments}
+            clipped={post.clipped}
+          />
+        )
+      })}
       <div ref={ref} />
     </Stack>
   )
