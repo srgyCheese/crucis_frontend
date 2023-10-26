@@ -1,8 +1,30 @@
-# React + Vite
+# crucis_frontend
+Это MVP проект сайта-блога разработанный за 6 дней во время проведения хаккатона в ТСПК. Проект построен на React. UIKit - MaterialUI, работа с формами - React Hook Form, данные с сервера хранятся с React Query, валидация - Zod, сборщик - Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Цель
+MVP платформа для блога с функциональностью:
 
-Currently, two official plugins are available:
+* Главная страница (Лента блога)
+    * Список недавних постов
+    * Возможность фильтрации по времени
+    * Кнопка "Читать далее"
+* Страница создания поста с:
+    * Отображением полного текста
+    * Возможностью комментирования
+    * Ссылками на социальные сети
+* Страница пользователя (личный кабинет) с возможностью:
+    * Регистрации с электронной почтой и паролем
+    * Входа после регистрации
+    * Редактирования личной информации и постов
+    * Просмотра личной информации
+* Роль админа с возможностями:
+    * Входа
+    * Просмотра и модерации пользователей, постов и комментариев
+ 
+## Результат:
+Все цели были достигнуты, только из-за отсутствия дизайна и сжатых сроков получился не лучший UI. Backend был реализован на Laravel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Репозиторий с Backend: [Receiver1/crucis_backend](https://github.com/Receiver1/crucis_backend)
+
+Скриншот главной страницы:
+![image](https://github.com/Receiver1/crucis_backend/assets/62743649/6a9527bf-ded6-40e0-b360-bb81b9d75ff3)
